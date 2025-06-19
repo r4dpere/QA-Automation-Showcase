@@ -1,0 +1,32 @@
+name: Enhanced CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Run Python Unittests
+      run: |
+        cd python-unittest-samples
+        python3 -m unittest discover > ../reports/output.log
+        echo '<html><body><h1>Auto Report</h1><p>All tests executed.</p></body></html>' > ../reports/auto_report.html
+
+    - name: Upload Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-report
+        path: reports/
