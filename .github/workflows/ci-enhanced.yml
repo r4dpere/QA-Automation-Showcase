@@ -26,7 +26,7 @@ jobs:
         echo '<html><body><h1>Auto Report</h1><p>All tests executed.</p></body></html>' > ../reports/auto_report.html
 
     - name: Upload Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-report
         path: reports/
